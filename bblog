@@ -180,11 +180,11 @@ modify_post(){
 }
 
 upload(){
-stty -echo
-echo "Insert FTP password:"
-read passwd
-stty echo
-FTP_PASSWORD=$passwd
+	stty -echo
+	echo "Insert FTP password:"
+	read passwd
+	stty echo
+	FTP_PASSWORD=$passwd
 
 
 ncftp <<EOF
@@ -202,9 +202,42 @@ EOF
 
 }
 
+version(){
+	echo -n ""
+	echo -n ""
+	echo -n ""
+	echo -n ""
+	echo -n ""
+	echo -n ""
+	echo -n ""
+	echo -n ""
+	echo -n ""
+	echo -n ""
+	echo -n ""
+
+}
+usage(){
+	echo -n ""
+	echo -n ""
+	echo -n ""
+	echo -n ""
+	echo -n ""
+	echo -n ""
+	echo -n ""
+	echo -n ""
+	echo -n ""
+	echo -n ""
+	echo -n ""
+	echo -n ""
+	echo -n ""
+	echo -n ""
+	echo -n ""
+
+}
+
 ###################################### *** MAIN *** ########################################
 
-read_config
+read_config  # Importa i parametri da bblog.conf
 
 ######**  Setting Theme  **######
 
@@ -250,9 +283,8 @@ case "$1" in
       --info)
               echo "Info"
               ;;
-    --upload) cd .data
-	      `ls` 
-              echo "Upload"
+    --upload) 
+	      echo "Upload"
 	      upload
               ;;
       --move)
