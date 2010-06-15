@@ -25,9 +25,9 @@ THEME_DIR=themes/
 THEME=default
 
 ### Remote Upload Parm ###
-FTP_HOST=esteban.homelinux.org
-FTP_LOGIN=esteban
-FTP_REMOTE_DIR=/var/mounts/sda1/var/www/bblog
+FTP_HOST=estebansannin.altervista.org
+FTP_LOGIN=estebansannin
+FTP_REMOTE_DIR=/bblog
 
 # funzione che genera il link per la pagina principale
  update_index(){
@@ -111,32 +111,36 @@ read_config(){
         
         if [ -e $CONFIG  ]; then
                 . ./$CONFIG
-                echo -n "\n\n\tLoaded configuration file: $CONFIG\n\n"
+                echo -n "\n\tLoaded configuration file: $CONFIG\n\n"
         else
                 echo -n "\n\n\tConfiguration file not loaded!\n\n"
         fi
 }
-control_destination_dir(){
+move_content(){
 
 	 cp $INDEX $DESTINATION_DIR
 	 cp -r $THEME_DIR $DESTINATION_DIR
 	 cp -r $DIR $DESTINATION_DIR
-	 cp $CONFIG $DESTINATION_DIR
+	 
 	 #echo "Contenuto spostato in: $DESTINATION_DIR"
 
 }
 move(){
+	echo -n "Insert Path Directory: "
+	read dir
+	DESTINATION_DIR=$dir
 	if [ -e $DESTINATION_DIR  ]; then
 		#echo "il file esiste"
-		control_destination_dir
-		echo "Content moved to: $DESTINATION_DIR"
+		move_content
+		#echo "Content moved to: $DESTINATION_DIR"
 		echo
 	else
 		echo "Directory not exist. Do you want create one? (y/n)"
 		read chose
 		if [ $chose = "y" ]; then
 			mkdir $DESTINATION_DIR
-			control_destination_dir
+			move_content
+			echo
 		else if [ $chose = n  ]; then
 			echo "Content not moved!"
 		else
@@ -179,6 +183,50 @@ modify_post(){
 	fi
 }
 
+post_list(){
+	echo -n "\n\n\tPost LIST:\n\n"
+	ls -1 -r $DIR
+	echo
+}
+
+delete_post(){
+	echo "Delete posts"
+	list_post_published
+	echo -n "Insert the number of posts you want to delete: "
+	read number
+	number_post=`wc -l temp_post | awk {'print $1'}`
+	echo "number: $number"
+	if [ ! -z "$number" ]; then
+		if [ "$number" -gt "$number_post" ]; then
+			echo
+			echo "The number of posts you entered is invalid!"
+			list_post_published
+		else
+			temporary_value_post=`sed -n ${number}p temp_post | awk -F. {'print $1'} | cut -f2 -d/`
+			#search_post=`cat index.html | grep "$temporary_value_post" `
+			#echo $temporary_value_post
+			echo "Confirm (y/n)"
+			read confirm
+			case "$confirm" in
+				y)
+					sed -i "/$temporary_value_post/d" $INDEX
+					echo "Post Deleted!"
+					echo
+					;;
+				*)
+					echo "Annulled"
+					echo
+					;;
+			esac			
+       			
+		fi
+	else
+		echo "No number entered!"
+		echo
+	fi
+
+}
+
 upload(){
 	stty -echo
 	echo "Insert FTP password:"
@@ -190,7 +238,7 @@ upload(){
 ncftp <<EOF
 open -u $FTP_LOGIN -p $FTP_PASSWORD $FTP_HOST
 set auto-resume yes
-cd /var/mounts/sda1/var/www/bblog
+cd $FTP_REMOTE_DIR
 put index.html
 put -R data
 mkdir themes
@@ -199,44 +247,41 @@ put -R themes/*
 bye
 EOF
 
-
 }
 
 version(){
-	echo -n ""
-	echo -n ""
-	echo -n ""
-	echo -n ""
-	echo -n ""
-	echo -n ""
-	echo -n ""
-	echo -n ""
-	echo -n ""
-	echo -n ""
-	echo -n ""
+	echo -n "
+	
+	BBLOG 0.2.0 
+	
+	Copyright © 2010 Stafano Viola
+	Licenza GPLv3+: GNU GPL versione 3 o successive <http://gnu.org/licenses/gpl.html>
+	Questo è software libero: siete liberi di modificarlo e ridistribuirlo.
+	Non c'è ALCUNA GARANZIA, per quanto consentito dalle vigenti normative.
+	\n"
 
 }
 usage(){
-	echo -n ""
-	echo -n ""
-	echo -n ""
-	echo -n ""
-	echo -n ""
-	echo -n ""
-	echo -n ""
-	echo -n ""
-	echo -n ""
-	echo -n ""
-	echo -n ""
-	echo -n ""
-	echo -n ""
-	echo -n ""
-	echo -n ""
+	echo -n "
+BBLOG Usage:
 
+usage: bblog [OPTION]
+
+OPTION:
+	--post      add new post blog
+	--edit      edit your blog post
+	--delete    delete your blog post
+	--upload    upload your bblog on server (required ncftp)
+	--move      move all files of bblog in a new directory
+	--version   print Version
+	--help      This message
+	\n"
 }
 
 ###################################### *** MAIN *** ########################################
-
+echo 
+echo "******************************************************"
+echo
 read_config  # Importa i parametri da bblog.conf
 
 ######**  Setting Theme  **######
@@ -251,7 +296,9 @@ echo -n "\n\n\tInformation Setting:\n\n"
 echo "THEME used: $THEME"
 echo "TITLE_SITE: $TITLE_SITE"
 echo "PAGE NAME:  $INDEX"
-
+echo
+echo "******************************************************"
+echo
 
 case "$1" in
 
@@ -288,14 +335,19 @@ case "$1" in
 	      upload
               ;;
       --move)
-	      echo -n "Insert Dir: "
-	      read dir
-	      DESTINATION_DIR=$dir
 	      move
+	      ;;
+      --version) version
+	      ;;
+      --delete)
+	      delete_post
+	      ;;
+      --help)
+	      usage
 	      ;;
 
 
-           *) echo error
+           *) usage
               ;;
 esac
 
