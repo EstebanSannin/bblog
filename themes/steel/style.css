@@ -5,7 +5,7 @@
 body  {
 	margin : 0;
 	padding : 0 0 30px 0;
-	background-color : grey;
+	/*background-color : grey;*/
 	color : #888;
 	background-image: url(none);
 	background-repeat: repeat-y ;
@@ -27,7 +27,7 @@ div#footer  {
 	body>div#footer{
 		position : fixed;
 		z-index : 10;
-		background-color: black;
+		background-color: white;
 	}
 }
 
@@ -51,8 +51,8 @@ div#header  {
 	width : 100%;
 	height : 100px;
 	border-bottom : 1px solid #888;
-	background-image : url(image/wall.jpg);
-	/*background-image: url(image/tux.png);
+	/*background-image : url(image/wall.jpg);
+	background-image: url(image/tux.png);
 	background-repeat: no-repeat;
   	background-position: right;*/
 }
@@ -61,7 +61,7 @@ div#header  {
 	body>div#header  {
 		position : fixed;
 		/* z-index : 10; */
-		background-color: black;
+		background-color: white;
 	}
 }
 
@@ -80,16 +80,21 @@ h2  {
 	font-family : freemono, fixed;
 	font-size : 25px;
 	padding : 3px;
-	color: white;
+	color: black;
 }
 
-a:link, a:visited, a:active  {
-	color : white;
-	text-decoration : none;
+a {
+	color : rgb(88, 77, 77);
+	text-decoration : underline;
+}
+a:visited {
+	color: rgb(121, 121, 121);
+	text-decoration: underline;
 }
 
 a:hover  {
-	color : #FF0000;
+	color : rgb(0, 0, 0);
+	text-decoration: underline;
 }
 
 input, textarea, select  {

@@ -1,6 +1,6 @@
 
-bblog e' un applicazione a riga di comando scritta totalmente da zero in Bash Scripting e ha la capacita` 
-di creare ed amministrare un semplice blog utilizzando un terminale Linux.
+bblog e' un applicazione a riga di comando scritta in Shell Scripting con la capacita` 
+di creare ed amministrare un semplice blog/sito utilizzando una shell linux.
 
 E` possibile anche utilizzare diversi temi settando opportunamente il file di configurazione
 
@@ -12,4 +12,4 @@ e la guida all'utilizzo.
 
 
 [NOTE]
-	al momento l'applicazione non e` completa.
+	al momento l'applicazione non e` completa del tutto.
