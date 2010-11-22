@@ -329,14 +329,14 @@ read_config  # Importa i parametri da bblog.conf
 
 ######**  Setting Theme  **######
 
-#STYLE=style.css
+STYLE=`cat themes/current_theme` 
 THEME_PAGE=../themes/$STYLE
 THEME_CSS=themes/$STYLE
 
 ######**End Setting Theme**######
 
 echo -n "\n\n\tInformation Setting:\n\n"
-echo "THEME used: $THEME"
+echo "THEME used: $STYLE"
 echo "TITLE_SITE: $TITLE_SITE"
 echo "PAGE NAME:  $INDEX"
 echo
