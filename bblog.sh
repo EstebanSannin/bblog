@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 #  AUTHOR= Stefano Viola (aka) Esteban Sannin
 # CONTACT= stefanoviola[@]sannioglug[.]org
