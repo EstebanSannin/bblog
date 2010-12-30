@@ -1,0 +1,64 @@
+
+INTRODUZIONE:
+		bblog e` un'applicazione unica nel suo genere.
+		Vi permette di creare un blog/sito statico, ma vi offre la possibilita di 
+		gestire i contenuti in maniera dinamica.
+		Il vantaggio di tutto cio' e' il fatto di avere un sito sicuro e leggero e allo stesso
+		tempo dinamico.
+
+		Il core e' scritto totalmente in shell scripting e non ha particolari dipendenze se non 
+		le coreutils standard Linux.
+
+		Bblog offre anche un gestore temi dove chiunque, anche utenti meno esperti, possono divertirsi
+		a scriverne di nuovi e provarli il tutto con una semplicita' estrema.
+		Inoltre gli utenti piu' esperti possono divertirsi a scrivere dei moduli o aggiungere nuove funzionalita'
+		al Core, mediante un sistema a moduli molto semplice.
+
+INSTALLAZIONE:
+		
+		Come gia` accennato nell'introduzione, bblog e' scritto in shell scripting quindi per usarlo abbiamo bisogno 
+		di una shell Linux che abbia a disposizione le coreutils standard.
+		Ora basta` estrarre il contenuto del pacchetto in una directory dedicata, ad esempio "~/bblog".
+		Il pacchetto e' compostoda diversi file e directory e ognuno ha un suo ruolo nell'applicazione che vi spieghero' in 
+		seguito. Ora per il corretto funzionamente e quindi per iniziare a creare il nostro sito c'e' bisogno
+		di dare i permessi di esecuzione al core, ossia al file "bblog.sh" con il seguente comando:
+			
+			chmod +x bblog.sh
+
+		Fatto cio' bblog e' pronto per creare il vostro sito.
+
+PRIMO UTILIZZO
+
+		Come prima cosa lanciamo la nostra applicazione digitando nella consol ./bblog.sh
+		Vi troverete di fronte a qualcosa del genere:
+
+		bblog> 
+
+		ecco il nostro bblog e' pronto per ricevere i comandi.
+		Come prima cosa vi consiglio di digitare il comando "help" per poter visualizzare tutti i comandi,
+		dopo di che' magari dare uno sguardo veloce alle note di versione dando il comando "version".
+
+		Fatto cio' iniziamo la prima configurazione:
+		digitiamo "config" e rispondiamo alle semplici domande checi verranno poste al fine di creare un corretto
+		file di configurazione. Ovviamente nella directory config c'e' gia' uno con alcuni valori di default.
+		Vi verra' chiesto il titolo del sito, l'editor che preferite utilizzare, il nome della vostra index e il nome dell'utente che poi
+		andra' a firmare i vostri post blog.
+
+
+		Fatto cio' siamo pronti a creare il nostro sito.
+		Diamo il comando "init" per generare la prima pagina, et voila` la pagina index e' stata creata.
+		Se volete vedere il risultato, dirigetevi con il vostro file manager nella directory di bblog e noterete un nuovo file
+		con il nome che avete indicato durante la configurazione, apritelo con firefox o chrome e vedrete il vostro risultato.
+
+AGGIUNGIAMO CONTENUTI:
+		
+		POST BLOG:
+			Per aggiungere un nuovo post blog, vi basta digitare nella consol di bblog "post"
+			vi verra` chiesto il titolo del post e dando invio si aprira' il vostro editor che avete
+			precedentemente settato nel vostro file di configurazione e quindi potrete scrivere il vostro
+			post, utilizzando il linguaggio HTML, poi salvate e uscite.
+			Se tutto e' andato a buon fine, vi verra' aggiunto il link alla vostra pagina index e verra creata nella directory di bblog una
+			nuova directory di nome data e noterete anche un nuovo file chiamato temp_post; entrambi i file servono per gestire
+			i blog post all'interno del vostro sito.
+
+	

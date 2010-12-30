@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/bin/sh
 #
 #  AUTHOR= Stefano Viola (aka) Esteban Sannin
 # CONTACT= stefanoviola[@]sannioglug[.]org
 # LICENSE= GPLv3
 #
 
-VERSION=0.2.2-bblog
+VERSION=0.2.9
 
 EDITOR=vi
 INDEX=index.html
@@ -26,7 +26,7 @@ DESTINATION_DIR=
 THEME_DIR=themes/
 
 THEME=default.css
-
+MENU_CONF=config/menu.conf
 #******** Remote Upload Parm *********#
 
 FTP_HOST=estebansannin.altervista.org
@@ -37,20 +37,29 @@ FTP_REMOTE_DIR=/bblog
 
 #*********** MENU SETTING ************#
 
-NAME_LINK1="return"
-HREF_LINK1="../index.html"
+NAME_LINK1=`sed -n 1p $MENU_CONF | cut -f1 -d\;`
+HREF_LINK1=`sed -n 1p $MENU_CONF | cut -f2 -d\;`
 
-NAME_LINK2=progect
-HREF_LINK2=
+NAME_LINK2=`sed -n 2p $MENU_CONF | cut -f1 -d\;`
+HREF_LINK2=`sed -n 2p $MENU_CONF | cut -f2 -d\;`
 
-NAME_LINK3=
-HREF_LINK3=
+NAME_LINK3=`sed -n 3p $MENU_CONF | cut -f1 -d\;`
+HREF_LINK3=`sed -n 3p $MENU_CONF | cut -f2 -d\;`
 
-NAME_LINK4=
-HREF_LINK4=
+NAME_LINK4=`sed -n 4p $MENU_CONF | cut -f1 -d\;`
+HREF_LINK4=`sed -n 4p $MENU_CONF | cut -f2 -d\;`
 
-NAME_LINK5=
-HREF_LINK5=
+NAME_LINK5=`sed -n 5p $MENU_CONF | cut -f1 -d\;`
+HREF_LINK5=`sed -n 5p $MENU_CONF | cut -f2 -d\;`
+
+NAME_LINK6=`sed -n 6p $MENU_CONF | cut -f1 -d\;`
+HREF_LINK6=`sed -n 6p $MENU_CONF | cut -f2 -d\;`
+
+NAME_LINK7=`sed -n 7p $MENU_CONF | cut -f1 -d\;`
+HREF_LINK7=`sed -n 7p $MENU_CONF | cut -f2 -d\;`
+
+NAME_LINK8=`sed -n 8p $MENU_CONF | cut -f1 -d\;`
+HREF_LINK8=`sed -n 8p $MENU_CONF | cut -f2 -d\;`
 
 #********** END MENU SETTING *********#
 
@@ -109,25 +118,29 @@ home(){
     if [ ! -e ${INDEX} ]; then
 	echo
 	echo "...creating ${INDEX}"
-	echo "<!-- ;9999999999; --><!-- <?xml version=\"1.0\" encoding=\"UTF-8\" ?> --><!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\"><link rel=\"stylesheet\" href=\"$THEME_CSS\" type=\"text/css\"><head><title>$TITLE_SITE</title></head><body>" >> ${INDEX}
-	echo "<!-- ;9999999998; --><meta http-equiv=\"Content-Type\" CONTENT=\"text/html; charset=UTF-8\">" >> ${INDEX}
-	echo "<!-- ;9999999997; --><div id=\"footer\"><font color=red>  BBLOG</font> by <a href=\"http://esteban.homelinux.org\">EstebanSannin</a></div>" >> ${INDEX}
-	echo "<!-- ;9999999996; --><div id=\"header\"><pre><titleSite><h2>$TITLE_SITE</h2></titleSite><table border=\"0\"><tr>" >> ${INDEX}
-	echo "<!-- ;9999999995; --><td class=\"headitem\"><a href=\"$HREF_LINK1\">$NAME_LINK1</a></td>" >> ${INDEX}
-	echo "<!-- ;9999999994; --><td class=\"headitem\"><a href=\"$HREF_LINK2\">$NAME_LINK2</a></td>" >> ${INDEX}
-	echo "<!-- ;9999999993; --><td class=\"headitem\"><a href=\"$HREF_LINK3\">$NAME_LINK3</a></td>" >> ${INDEX}
-	echo "<!-- ;9999999992; --><td class=\"headitem\"><a href=\"$HREF_LINK4\">$NAME_LINK4</a></td>" >> ${INDEX}
-	echo "<!-- ;9999999990; --><td class=\"headitem\"><a href=\"$HREF_LINK5\">$NAME_LINK5</a></td>" >> ${INDEX}
-	echo "<!-- ;9999999989; --><td class=\"headitem\"><a href=\"$HREF_LINK6\">$NAME_LINK6</a></td>" >> ${INDEX}
-	echo "<!-- ;9999999988; --><td class=\"headitem\"><a href=\"$HREF_LINK7\">$NAME_LINK7</a></td></tr></table></div>" >> ${INDEX}
-	echo "<!-- ;9999999987; --><div id=\"content\">" >> ${INDEX}
-	echo "<!-- ;9999999986; --><h3>Post List:</h3>" >> ${INDEX}
+	echo "<!-- ;99999999999; --><!-- <?xml version=\"1.0\" encoding=\"UTF-8\" ?> --><!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"><html xmlns=\"http://www.w3.org/1999/xhtml\"><link rel=\"stylesheet\" href=\"$THEME_CSS\" type=\"text/css\"><head><title>$TITLE_SITE</title></head><body>" >> ${INDEX}
+	echo "<!-- ;9999999999; --><meta http-equiv=\"Content-Type\" CONTENT=\"text/html; charset=UTF-8\">" >> ${INDEX}
+	echo "<!-- ;9999999998; --><div id=\"footer\"><font color=red>  BBLOG</font> by <a href=\"http://esteban.homelinux.org\">EstebanSannin</a></div>" >> ${INDEX}
+	echo "<!-- ;9999999997; --><div id=\"header\"><pre><titleSite><h2>$TITLE_SITE</h2></titleSite><table border=\"0\"><tr>" >> ${INDEX}
+	echo "<!-- ;9999999995; --><td class=\"headitem\"><a href=\"$HREF_LINK1\"><link1>$NAME_LINK1</link1></a></td>" >> ${INDEX}
+	echo "<!-- ;9999999994; --><td class=\"headitem\"><a href=\"$HREF_LINK2\"><link2>$NAME_LINK2</link2></a></td>" >> ${INDEX}
+	echo "<!-- ;9999999993; --><td class=\"headitem\"><a href=\"$HREF_LINK3\"><link3>$NAME_LINK3</link3></a></td>" >> ${INDEX}
+	echo "<!-- ;9999999992; --><td class=\"headitem\"><a href=\"$HREF_LINK4\"><link4>$NAME_LINK4</link4></a></td>" >> ${INDEX}
+	echo "<!-- ;9999999990; --><td class=\"headitem\"><a href=\"$HREF_LINK5\"><link5>$NAME_LINK5</link5></a></td>" >> ${INDEX}
+	echo "<!-- ;9999999989; --><td class=\"headitem\"><a href=\"$HREF_LINK6\"><link6>$NAME_LINK6</link6></a></td>" >> ${INDEX}
+	echo "<!-- ;9999999988; --><td class=\"headitem\"><a href=\"$HREF_LINK7\"><link7>$NAME_LINK7</link7></a></td>" >> ${INDEX}
+	echo "<!-- ;9999999987; --><td class=\"headitem\"><a href=\"$HREF_LINK8\"><link8>$NAME_LINK8</link8></a></td>" >> ${INDEX}
+	echo "<!-- ;9999999980; --></tr></table></div>" >> ${INDEX}
+	#end menu bar
+
+	echo "<!-- ;9999999979; --><div id=\"content\">" >> ${INDEX}
+	echo "<!-- ;9999999978; --><h3>Post List:</h3>" >> ${INDEX}
 	echo "<!-- ;4; enter content -->" >> ${INDEX}
 	echo "<!-- ;3; enter content -->" >> ${INDEX}
 	echo "<!-- ;2; enter content -->" >> ${INDEX}
 	echo "<!-- ;0; closing tag --></body></html>" >> ${INDEX}
 	echo
-    fi
+   fi
 }
 
 
@@ -139,8 +152,8 @@ get_post_title(){
 }
 read_config(){
 
-    if [ -e $CONFIG  ]; then
-	. ./$CONFIG
+    if [ -e config/$CONFIG  ]; then
+	. config/$CONFIG
 	echo -n "\n\tLoaded configuration file: $CONFIG\n\n"
     else
 	echo -n "\n\n\tConfiguration file not loaded!\n\n"
@@ -297,6 +310,8 @@ change_theme(){
     fi
 }
 
+
+
 change_title(){
 
 	echo "Change Title site"
@@ -312,10 +327,92 @@ change_title(){
 	sed -i "s;TITLE_SITE=\"$curret_title\";TITLE_SITE=\"$new_title\";g" $CONFIG
 
 }
+
+menu_administration(){
+	echo "---> Menu Administration"
+	echo
+	echo
+	current_number_link=`wc -l config/menu.conf | awk '{print $1}'`
+
+
+	if [ $current_number_link -eq 8 ]; then
+	echo "The current number link is 8"
+	else
+	echo "The number of the menu link is $current_number_link"
+	echo "For add a new link menu insert the number $current_number_link + 1"
+	echo "For modify existing menu insert the relative number"
+	fi
+	echo
+	echo -n "Insert number link to modify: "
+	read number
+	if [ $number -gt 8 ]; then
+	echo "Invalid number! The limit is 8"
+	else
+	p=p
+	control=$number$p
+	current=`sed -n $control $MENU_CONF | cut -f1 -d\;`
+	if [ -z "$current" ]; then
+		echo
+		echo "Label not found!"
+		echo "Do you want add a new link menu?"
+		echo "---> yes"
+		echo "---> no"
+		read response
+		case "$response" in
+		yes)
+		echo "Insert new label"
+		read label
+		echo "Insert new link"
+		read link
+		separator=\;
+		echo "$label$separator$link" >> $MENU_CONF
+		new_label=`sed -n $control $MENU_CONF | cut -f1 -d\;`
+		new_link=`sed -n $control $MENU_CONF | cut -f2 -d\;`
+		sed -i "s;<link$number>;<link$number>$new_label;g" *.html
+		sed -i "s;<a href=\"\"><link$number>;<a href=\"$new_link\"><link$number>;g" *.html
+		;;
+		no)
+		echo "Link not created"
+		;;
+		*)
+		echo error!
+		esac
+	else
+		#cat ${INDEX} | grep -i "<link$number>"
+		echo "1. Change label"
+		echo "2. Change link"
+		echo "3. Delete menu link"
+		read chois
+		case "$chois" in
+			1)
+			echo "Current label is: `cat index.html | grep link$number | sed 's/<[^>]*[>]//g'`"
+			current=`cat index.html | grep link$number | sed 's/<[^>]*[>]//g'`
+			echo "Insert new label name:"
+			read label
+			sed -i "s;$current;$label;g" $MENU_CONF
+			sed -i "s;<link$number>$attual;<link$number>$label;g" *.html
+			;;
+			2)
+			echo "Insert new link for label: $current"
+			read link
+			current_link=`sed -n $control $MENU_CONF | cut -f2 -d\;`
+			sed -i "s;$current_link;$link;g" $MENU_CONF
+			sed -i "s;<a href=\"$current_link\"><link$number>;<a href=\"$link\"><link$number>;g" *.html
+			;;
+			3)
+			echo delete
+			;;
+			*)
+			echo "error!"
+		esac
+	fi
+	fi
+	
+}
 version(){
     echo -n "
 
-	BBLOG 0.2.1 
+	BBLOG $VERSION 
 
 	Copyright © 2010 Stafano Viola
 	Licenza GPLv3+: GNU GPL versione 3 o successive <http://gnu.org/licenses/gpl.html>
@@ -326,26 +423,37 @@ version(){
 }
 usage(){
     echo -n "
-    BBLOG Usage:
+    BBLOG Command:
 
-    usage: bblog [OPTION]
-
-    OPTION:
-    --post      add new post blog
-    --edit      edit your blog post
-    --delete    delete your blog post
-    --page      creates a new html page
-    --theme	change your theme
-    --version   print Version
-    --help      This message
-    --title	change title Site
-    \n"
+    post      add new post blog
+    edit      edit your blog post
+    delete    delete your blog post
+    page      creates a new html page
+    theme     change your theme
+    version   print Version
+    help      This message
+    title     change title Site
+    list      a list of post
+    info      information of bblog
+    version   version note
+    menu      setting menu bar
+    exit      exit of bblog
+    "
+    echo ""
 }
 
+info(){
+	echo
+	echo "Current Theme: $STYLE"
+	echo "Title Site:    $TITLE_SITE"
+	echo "Page name:     $INDEX"
+	echo
+
+}
 ###################################### *** MAIN *** ########################################
-echo 
-echo "******************************************************"
-echo
+#echo 
+#echo "******************************************************"
+#echo
 read_config  # Importa i parametri da bblog.conf
 
 ######**  Setting Theme  **######
@@ -356,79 +464,153 @@ THEME_CSS=themes/$STYLE
 
 ######**End Setting Theme**######
 
-echo -n "\n\n\tInformation Setting:\n\n"
-echo "THEME used: $STYLE"
-echo "TITLE_SITE: $TITLE_SITE"
-echo "PAGE NAME:  $INDEX"
-echo
-echo "******************************************************"
-echo
 
-case "$1" in
 
-    --post)
-	get_post_title
-	echo $title
-	$EDITOR temp.$FORMAT
-	format_main
+#echo -n "\n\n\tInformation Setting:\n\n"
+#echo "THEME used: $STYLE"
+#echo "TITLE_SITE: $TITLE_SITE"
+#echo "PAGE NAME:  $INDEX"
+#echo
+#echo "******************************************************"
+#echo
+echo
+echo "BBLOG"
+echo
+while [ 1 ]
+do
+echo -n "bblog> "
+read value
+case "$value" in
+    test)
+    echo insert
+    read ue
+    if [ $ue -gt 8 ]; then
+    echo 11111
+    else
+    echo 222222
+    fi
+	;;
+    init)
 	home
-	update_index
-	sort_index
-	echo "New Post Added to $INDEX!"
-	echo
-	log_post
+    	;;
+      ls)
+      	ls .
+	;;
+    post)
+	if [ -e $INDEX ]; then
+		get_post_title
+		echo $title
+		$EDITOR temp.$FORMAT
+		format_main
+		home
+		update_index
+		sort_index
+		echo "New Post Added to $INDEX!"
+		echo
+		log_post
+	else
+		echo "Index not present. Try \"init\"."
+	fi
 #echo $TITLE >> $POST_PUBLISHED
 	
 	;;
-    --list) echo -n "\n\n\tPost LIST:\n\n"
-	ls -1 -r $DIR
-	echo
+    list)
+    	if [ -e $INDEX ]; then
+    		echo -n "\n\n\tPost LIST:\n\n"
+		ls -1 -r $DIR
+		echo
+	else
+		echo "Index not found! Try \"init\"."
+	fi
+
 	;;
     
-    --list-pub)
-	list_post_published
+    list-pub)
+    	if [ -e $INDEX ]; then
+		list_post_published
+	else
+		echo "Index not found! Try \"init\"."
+	fi
 	;;
     
-    --config)
+    config)
 	echo "configure"
+	cat bblog.conf
 	;;
-    --edit)
-	echo "edit"
-	modify_post
+    edit)
+	if [ -e $INDEX ]; then
+		echo "edit"
+		modify_post
+	else
+		echo "Index not found! Try \"init\"."
+	fi
 	;;
-    --info)
-	echo "Info"
+    info)
+	info
 	;;
-    --theme) 
-	change_theme
+    theme) 
+    	if [ -e $INDEX ]; then
+		change_theme
+	else
+		echo "Index not found! Try \"init\"."
+	fi
 	;;
-    --move)
-	move
+    move)
+    	if [ -e $INDEX ]; then
+		move
+	else
+		echo "Index not found! Try \"init\"."
+	fi
 	;;
-    --version) version
+ version) 
+    	version
 	;;
-    --delete)
-	delete_post
+    delete)
+    	if [ -e $INDEX ]; then
+		delete_post
+	else
+		echo "Index not found! Try \"init\"."
+	fi
 	;;
-    --help)
+    help)
 	usage
 	;;
-    --page)
-	echo "Insert title page"
-	read title_page
-	INDEX=$title_page.html 
-	home
-	sed -i "s%Post List:%TITLE%g" $INDEX
-	echo "Page $INDEX created!"
+    page)
+    	if [ -e $INDEX ]; then
+		echo "Insert title page"
+		read title_page
+		INDEX=$title_page.html 
+		home
+		sed -i "s%Post List:%TITLE%g" $INDEX
+		echo "Page $INDEX created!"
+	else
+		echo "Index not found! Try \"init\"."
+	fi
 	;;
-   --title)
-   	change_title
+   title)
+   	if [ -e $INDEX ]; then
+   		change_title
+	else
+		echo "Index not found! Try \"init\"."
+	fi
    	;;
-    *) 
-	usage
+    menu)
+    	if [ -e $INDEX ]; then
+    		menu_administration
+	else
+		echo "Index not found! Try \"init\"."
+	fi
+	;;
+    exit)
+      	break
+	;;
+       *) 
+	#usage
+	echo "Error Syntax: $value "
+	echo "Try \"help\" for more information."
 	;;
 esac
-
+done
 
 
 
